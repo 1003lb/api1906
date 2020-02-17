@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
+
 class TestController extends Controller
 {
    public function index(){
@@ -129,29 +131,57 @@ dd($respones);
 	}
 
 public function get1(){
-	print_r($_GET);
+	echo "接收到的数据";
+	echo "<p>";dump($_GET);echo "</p>";
    }
 public function post1(){
 	//$data=file_get_contents("php://input");
 	//var_dump($data);
+		echo "我是api开头";
  	print_r($_POST);
+ 	print_r($_FILES);
+ 		echo "我是api结尾";
 	}
 public function post2(){
  	print_r($_POST);
 	}
 public function post3(){
  	//print_r($_POST);
- $json=file_get_contents("php://input");
+// $json=file_get_contents("php://input");
   //var_dump($data);
-	$arr=json_decode($json,true);
-	echo "<p>";print_r($arr);echo "</p>";
+//	$arr=json_decode($json,true);
+	echo "<p>";print_r($_POST);echo "</p>";
 	}
- public function post5(){
-	        echo 6;
+	//获取当前完整的url地址
+ public function getUrl(){
+ 	//协议http HTTPS
+ 	$scheme=$_SERVER['REQUEST_SCHEME'];
+ 	//域名
+ 	$host=$_SERVER['HTTP_HOST'];
+ 	//请求url
+ 	$uri=$_SERVER['REQUEST_URI'];
+ 	$url=$scheme.'://'.$host.$uri;
+ 	echo '当前url：'.$url;echo '<hr>';
+	       echo "<p>";print_r($_SERVER);echo "</p>";
 	     }
 
-
-
+public function RedisStr1(){
+	$key='name';
+	$val="yanan";
+	Redis::set($key,$val);die;
+}
+public function RedisStr2(){
+	$token="dsdghgfhghngghghjg";
+	$key='user_token';
+	$goods_info=[
+	'id'=>12345,
+	'goods_name'=>'Iphonex',
+	'price'=>800000,
+	'img'=>'fghjgjjkhjhjhf'
+	];
+	Redis::set($key,$token);
+	Redis::expire($key,600);
+	}
 }
 
 
