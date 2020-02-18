@@ -49,5 +49,8 @@ Route::any('/user/reg','Api\UserController@reg');
 });
 
 Route::any('/detail','GoodsController@detail');
+Route::any('/detail1','GoodsController@detail1');
+
 Route::any('/redis/str','TestController@RedisStr1');
 Route::any('/redis/str2','TestController@RedisStr2');
+Route::any('/redis/count1','TestController@count1');

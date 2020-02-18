@@ -182,6 +182,31 @@ public function RedisStr2(){
 	Redis::set($key,$token);
 	Redis::expire($key,600);
 	}
+
+	public function count1(){
+		//使用ua识别用户
+		$ua=$_SERVER['HTTP_USER_AGENT'];
+		echo $ua."<hr>";
+		$u=md5($ua);
+		echo "md5 ua".$u."<hr>";
+		$u=substr($u,5,5);
+		echo "u:".$u."<hr>";
+				//限制次数
+	$max= env('API_ACCESS_COUNT'); //接口限制访问次数
+	//判断是否到上限
+		$key=$u.':count1';
+		echo $key."<hr>";
+		$number=Redis::get($key);
+		echo "现有访问次数：".$number."<hr>";
+		if($number>$max){
+			echo "接口访问受限,超过了访问次数".$max;
+		         die;
+		}
+		//redis计数
+	$count=Redis::incr($key);
+		echo $count."<hr>";
+		echo "访问正常";
+	}
 }
 
 

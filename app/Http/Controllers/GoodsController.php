@@ -24,12 +24,11 @@ $goods_info=Goods::where(['id'=>$goods_id])->first();
 //echo print_r($goods_info->toArray());
 
 
-$j_goods_info=json_encode($goods_info->toArray());
+$j_goods_info=json_encode($goods_info);
 Redis::set($goods_key,$j_goods_info);
 //print_r($goods_info);
-$arr=$goods_info->toArray();
+$arr=$goods_info;
 
-die;
     echo "商品ID：". $goods_id."<hr>";
     $ua=$_SERVER['HTTP_USER_AGENT'];
     $data=[
@@ -46,4 +45,6 @@ die;
     $uv=GoodsStaistic::where(['goods_id'=>$goods_id])->distinct('ua')->count('ua');
     echo "当前uv:".$uv;echo "<br>";
     }
+
+ 
 }
