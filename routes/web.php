@@ -42,7 +42,7 @@ Route::any('/post3','TestController@post3');
 Route::any('/geturl','TestController@getUrl');
 });
 
-Route::prefix('api')->group(function(){
+Route::prefix('api')->middleware('ApiFilter')->group(function(){
 Route::any('/user/info','Api\UserController@info');
 Route::any('/user/reg','Api\UserController@reg');
 
@@ -53,4 +53,7 @@ Route::any('/detail1','GoodsController@detail1');
 
 Route::any('/redis/str','TestController@RedisStr1');
 Route::any('/redis/str2','TestController@RedisStr2');
+
 Route::any('/redis/count1','TestController@count1');
+Route::any('/api2','TestController@api2')->middleware('ApiFilter');
+Route::any('/api3','TestController@api3');

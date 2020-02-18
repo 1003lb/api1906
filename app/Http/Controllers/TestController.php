@@ -193,20 +193,78 @@ public function RedisStr2(){
 		echo "u:".$u."<hr>";
 				//限制次数
 	$max= env('API_ACCESS_COUNT'); //接口限制访问次数
+
 	//判断是否到上限
 		$key=$u.':count1';
 		echo $key."<hr>";
 		$number=Redis::get($key);
 		echo "现有访问次数：".$number."<hr>";
+
+
+		//超过上限
+		
 		if($number>$max){
-			echo "接口访问受限,超过了访问次数".$max;
+			$timeout = env('API_TIMEOUT_SECOND');
+			Redis::expire($key,$timeout);
+			echo "接口访问受限,超过了访问次数".$max."<hr>";
+			echo "请".$timeout.'秒后访问'."<hr>";
 		         die;
 		}
 		//redis计数
 	$count=Redis::incr($key);
 		echo $count."<hr>";
 		echo "访问正常";
+
+		//限定10秒内不能访问
 	}
+
+	public function api2(){
+		$ua=$_SERVER['HTTP_USER_AGENT'];
+		$u=md5($ua);
+		$u=substr($u,5,5);
+		echo "U:".$u."<hr>";
+		//获取当前url
+		$uri=$_SERVER['REQUEST_URI'];
+		echo "URL:".$uri."<hr>";
+
+		$md5_uri=substr(md5($uri), 0,8);
+		echo $md5_uri."<hr>";
+
+		//$key=$u.':'.$md5_uri.':count';
+		$key='count:uri'.$u.':'.$md5_uri;
+		echo 'Redis Key:'.$key."<hr>";
+
+		$count=Redis::get($key);
+		echo "当前接口计数:".$count."<hr>";
+		$max= env('API_ACCESS_COUNT'); //接口限制访问次数
+		echo "接口访问最大次数：".$max."<hr>";
+		if($count > $max){
+				echo "<script>alert('别老瞎刷接口');</script>";
+			die;
+		}
+		Redis::incr($key);
+	}
+
+	public function api3(){
+
+		$ua=$_SERVER['HTTP_USER_AGENT'];
+		$u=md5($ua);
+		$u=substr($u,5,5);
+		echo "U:".$u."<hr>";
+		//获取当前url
+		$uri=$_SERVER['REQUEST_URI'];
+		echo "URL:".$uri."<hr>";
+
+		$md5_uri=substr(md5($uri), 0,8);
+		echo $md5_uri."<hr>";
+
+		//$key=$u.':'.$md5_uri.':count';
+		$key='count:uri'.$u.':'.$md5_uri;
+		echo 'Redis Key:'.$key."<hr>";
+
+		
+	}
+
 }
 
 
