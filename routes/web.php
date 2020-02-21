@@ -60,4 +60,8 @@ Route::any('/api2','TestController@api2')->middleware('ApiFilter');
 Route::any('/api3','TestController@api3');
 Route::any('/md5test1','TestController@md5Test1');
 Route::any('/verify','TestController@verifySign');
+Route::any('/lucky','TestController@lucky');
+
+Route::any('/decrypt1','TestController@decrypt1');
+
 

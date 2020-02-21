@@ -295,8 +295,36 @@ public function RedisStr2(){
     	}
     }
 
+  public  function lucky(){
+  	echo "输入你的生日日期，程序不安您算你今天吃啥"."<hr>";
+  	if(empty($_GET)){
+  		echo "请输入生日日期";die;
+  			}
+  		$birth=$_GET['birth'];
+  		//$res=['大吉','吉','中','凶','大凶'];
+  		
+  		$res=['不吃','看看余额','问问体重秤','吃','吃好的'];
+  		$rand=mt_rand(0,5);
+  		echo $res[$rand];
+  
+  }
 
+public function decrypt1(){
+	$key='1906';
+	$method='aes-128-cbc'; //加算法
+		$iv='abcdefg123456789'; //vi必须为16个字符
 
+		echo "接收到的数据：";
+		print_r($_GET);
+		$data=$_GET['data'];
+		//base64解码
+		$base64_str=base64_decode($data);
+		echo "base64解码后的密文".$base64_str;
+			//解密
+		$dec_data=openssl_decrypt($enc_str,$method,$key,OPENSSL_RAW_DATA,$iv);	
+		echo "解密的数据:";
+		var_dump($dec_data);
+	}
 }
 
 
