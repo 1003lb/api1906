@@ -265,6 +265,38 @@ public function RedisStr2(){
 		
 	}
 
+    public function md5Test1(){
+    	$key='1906';
+
+    	$str= $_GET['str']."<hr>";
+    	echo "签名前的数据".$str;
+
+    	//计算签名
+    	$sign=md5($str.$key);
+    	echo "计算的签名：".$sign;
+    
+    	//发送数据 （原始数据+签名）
+    }
+ //接收端--->接收数据（验证签名）
+    public function verifySign(){
+    	$key='1906';
+
+    	$data=$_GET['data'];//接收到的数据
+    	$sign=$_GET['sign'];//接收到的签名
+
+    	//延签 需要与发送端使用相同的规则
+    	$sign2=md5($data.$key);
+    	echo "接收计算的签名：".$sign2."<hr>";
+    	//与接收到的签名对比
+    	if($sign2==$sign){
+    		echo "延签通过，数据完整";
+    	}else{
+			echo "延签失败，数据损坏";
+    	}
+    }
+
+
+
 }
 
 

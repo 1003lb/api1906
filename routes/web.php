@@ -47,6 +47,7 @@ Route::any('/user/info','Api\UserController@info');
 Route::any('/user/reg','Api\UserController@reg');
 
 });
+Route::any('/weather','Api\UserController@weather');
 
 Route::any('/detail','GoodsController@detail');
 Route::any('/detail1','GoodsController@detail1');
@@ -57,3 +58,6 @@ Route::any('/redis/str2','TestController@RedisStr2');
 Route::any('/redis/count1','TestController@count1');
 Route::any('/api2','TestController@api2')->middleware('ApiFilter');
 Route::any('/api3','TestController@api3');
+Route::any('/md5test1','TestController@md5Test1');
+Route::any('/verify','TestController@verifySign');
+

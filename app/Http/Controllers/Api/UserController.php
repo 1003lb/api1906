@@ -32,4 +32,19 @@ $user_info=[
 	 $id=UserModel::insertGetId($user_info);
 	 echo "自增id:".$id;
   }
+
+   public function weather(){
+   if(empty($_GET['location'])){
+   		echo "请输入地理位置";
+   		die;
+   }
+  		$location=$_GET['location'];
+ $url="https://free-api.heweather.net/s6/weather/now?location=".$location."&key=36fe7f6d35a646af928b531f31138298";
+		$data=file_get_contents($url);
+		$arr=json_decode($data,true);
+		print_r($arr);echo "<hr>";
+		return $data;
+   }
+
+
 }
