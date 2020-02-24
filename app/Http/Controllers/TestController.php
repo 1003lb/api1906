@@ -325,6 +325,39 @@ public function decrypt1(){
 		echo "解密的数据:";
 		var_dump($dec_data);
 	}
+	  public function decr(){
+        $key="0000";    //接收端和发送端的key相同
+
+        $data=$_GET['data'];  //接收的数据
+        $sign=$_GET['sign'];  //接收的签名
+
+        //验证签名 前提：需要与发送端使用相同的规则
+        $sign2=md5($data.$key);
+        echo "接收端计算的签名:".$sign2;
+        echo "<br>";echo "<br>";
+
+        //与接收到的签名对比
+        if($sign2==$sign){
+            echo "验证签名通过  数据完整";
+        }else{
+            echo "验证签名失败  数据损坏";
+        }
+
+        $method="aes-128-cbc";  //算法
+        $iv="queid1234xhsbdeh";    //vi必须为十六个字节 （16个ascii字符）
+        echo "<hr>";echo "<br>";
+
+        echo "接收到的数据:";echo "<br>";
+        echo "<pre>";print_r($_GET);echo "</pre>";
+
+        $dada=$_GET['data']; //接收的数据--》密文
+
+        $b_data=base64_decode($dada);  //base64的解码
+        echo "base解码数据:".$b_data;echo "<br>";
+
+        $arr=openssl_decrypt($b_data,$method,$key,OPENSSL_RAW_DATA,$iv); //解密
+        var_dump($arr);
+    }
 }
 
 

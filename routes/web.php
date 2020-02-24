@@ -64,4 +64,5 @@ Route::any('/lucky','TestController@lucky');
 
 Route::any('/decrypt1','TestController@decrypt1');
 
+Route::any('/decr','TestController@decr');
 
