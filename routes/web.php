@@ -64,5 +64,5 @@ Route::any('/lucky','TestController@lucky');
 
 Route::any('/decrypt1','TestController@decrypt1');
 
-Route::any('/decr','TestController@decr');
+Route::any('/decr','TestController@decr');//加密解密和验签写到一块
 

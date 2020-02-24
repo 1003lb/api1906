@@ -325,6 +325,7 @@ public function decrypt1(){
 		echo "解密的数据:";
 		var_dump($dec_data);
 	}
+	//加密解密和验签写到一块
 	  public function decr(){
         $key="0000";    //接收端和发送端的key相同
 
