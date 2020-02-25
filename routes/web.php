@@ -26,6 +26,8 @@ Route::get('md5', function () {
 
 Route::any('cs','TestController@index');
 
+Route::any('/alipay/test1','AlipayControlle@test1');
+
 Route::prefix('test')->group(function(){
 Route::any('/test001','TestController@test001');
 Route::any('/test002','TestController@test002');
