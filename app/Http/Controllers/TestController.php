@@ -359,8 +359,36 @@ public function decrypt1(){
         $arr=openssl_decrypt($b_data,$method,$key,OPENSSL_RAW_DATA,$iv); //解密
         var_dump($arr);
     }
+    public function rsaDecrypt1(){
+    	//echo "<hr>";
+    	//	echo "这是api";
+    	 	//echo "<br>";
+   		//	dump($_GET);
+
+   			//	解密数据
+   	$enc_data=base64_decode($_GET['data']);	//base64_decode
+   	//var_dump($enc_data); echo "<br>"; //需要解密的数据
+
+
+	$priv=file_get_contents(storage_path('keys/priv_a.key'));
+	openssl_private_decrypt($enc_data,$dec_data,$priv);
+	//echo "解密数据：";echo "<br>";
+	//var_dump($dec_data);
+
+	//响应数据
+	$str="that s all right";
+	$key=file_get_contents(storage_path('keys/pub_b.key'));
+	openssl_public_encrypt($str,$enc_str,$key);
+	//echo "响应的加密数据".$enc_str;echo "<br>";
+	$data=[
+		'errno'=>0,
+		'msg'=>'ok',
+		'data'=>base64_encode($enc_str)
+	];
+
+	//对数据加密 使用对方的公钥进行加密
+	return $data;
+    
+    }
 }
-
-
-
 
